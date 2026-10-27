@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wispfall 的心愿留言墙</title>
+    <title>留言墙.byd</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -64,11 +64,11 @@
     </style>
 </head>
 <body>
-    <h1>留言墙.html</h1>
+    <h1>super 留言墙 time！</h1>
     <div class="container">
         <div class="form-group">
-            <input type="text" id="name" placeholder="你的名字" maxlength="20">
-            <input type="text" id="content" placeholder="写下你的心愿..." maxlength="100">
+            <input type="text" id="name" placeholder="你的名字，网络上要保护好自己的个人信息" maxlength="20">
+            <input type="text" id="content" placeholder="请说出你想对我骂（说）的东西" maxlength="100">
             <button onclick="submitMessage()">送达</button>
         </div>
         <div id="status"></div>
@@ -101,17 +101,17 @@
                     msgDiv.appendChild(div);
                 });
             } catch(e) {
-                msgDiv.innerHTML = '<p style="color:red;">加载留言失败，请刷新重试~</p>';
+                msgDiv.innerHTML = '<p style="color:red;">你失败了，先刷新吧（男人叹气声）</p>';
             }
         }
 
         function submitMessage() {
             const name = document.getElementById('name').value;
             const content = document.getElementById('content').value;
-            if(!content) { alert('写点内容再发射吧！'); return; }
+            if(!content) { alert('你先别发了，我问你个事，为什么不写东西？'); return; }
             // 因为纯静态网页不能直接写API（会暴露Token），所以直接跳转到GitHub页面让用户提交
             const url = `https://github.com/${owner}/${repo}/issues/${issueNumber}#new_comment_field`;
-            alert("因为网页是纯静态的，为了安全，接下来将跳转到 GitHub 页面直接留言哦！你可以把刚才的内容粘贴过去~");
+            alert("你 即将跳转到 github.com 所以 so so 如此 所以");
             window.open(url, '_blank');
         }
 
