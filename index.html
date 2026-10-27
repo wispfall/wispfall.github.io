@@ -3,119 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wispfall 的心愿留言墙</title>
+    <title>Littlefly</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e1e2f 0%, #2d2d44 100%);
-            color: #fff;
+        /* 基础页面重置 */
+        * {
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Courier New', Courier, monospace; /* 采用等宽字体，增加极客感 */
+            background-color: #0d1117; /* GitHub 风格的深邃黑 */
+            color: #c9d1d9;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
+            text-align: center;
         }
-        h1 { color: #00e5ff; text-shadow: 0 0 10px rgba(0,229,255,0.5); }
-        .container {
-            width: 100%;
-            max-width: 600px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        /* 超级大的标题 */
+        h1 {
+            font-size: 4rem;
+            color: #58a6ff; /* 明亮的蓝色 */
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(88, 166, 255, 0.4); /* 发光效果 */
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-out;
         }
-        .form-group { display: flex; gap: 10px; margin-bottom: 20px; }
-        input {
-            flex: 1;
-            padding: 12px;
-            border-radius: 8px;
-            border: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            outline: none;
-        }
-        input::placeholder { color: #aaa; }
-        button {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            background: #00e5ff;
-            color: #000;
+        /* 那行神秘的字 */
+        p.secret-text {
+            font-size: 1.5rem;
+            color: #8b949e;
+            letter-spacing: 5px;
+            margin-bottom: 60px;
             font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
         }
-        button:hover { background: #00b8cc; box-shadow: 0 0 15px #00e5ff; }
-        .message {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 15px;
-            margin-bottom: 10px;
+        /* 前往留言板的按钮 */
+        .nav-btn {
+            text-decoration: none;
+            color: #0d1117;
+            background-color: #238636; /* GitHub 绿 */
+            padding: 15px 30px;
             border-radius: 8px;
-            border-left: 4px solid #00e5ff;
-            animation: fadeIn 0.5s ease;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(35, 134, 54, 0.4);
         }
-        .message strong { color: #00e5ff; display: block; margin-bottom: 5px; }
-        .message p { margin: 0; color: #ddd; line-height: 1.5; }
-        #status { margin-top: 10px; font-size: 14px; color: #ffd700; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .nav-btn:hover {
+            background-color: #2ea043;
+            transform: translateY(-3px); /* 悬浮时微微上浮 */
+            box-shadow: 0 6px 20px rgba(46, 160, 67, 0.6);
+        }
+        /* 简单的入场动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
-    <h1>✨ 心愿留言墙 ✨</h1>
-    <div class="container">
-        <div class="form-group">
-            <input type="text" id="name" placeholder="你的名字" maxlength="20">
-            <input type="text" id="content" placeholder="写下你的心愿..." maxlength="100">
-            <button onclick="submitMessage()">发射</button>
-        </div>
-        <div id="status"></div>
-        <div id="messages" style="margin-top: 20px;">
-            <!-- 留言会显示在这里 -->
-        </div>
-    </div>
-
-    <script>
-        // 你的仓库信息
-        const owner = 'wispfall';
-        const repo = 'wispfall.github.io';
-        const issueNumber = 1; // 留言会存到第1号Issue里
-
-        async function loadMessages() {
-            const msgDiv = document.getElementById('messages');
-            try {
-                const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/issues/${issueNumber}/comments`);
-                const data = await res.json();
-                msgDiv.innerHTML = '';
-                if(data.length === 0) {
-                    msgDiv.innerHTML = '<p style="text-align:center;color:#aaa;">还没有留言，来做第一个吧！</p>';
-                    return;
-                }
-                data.forEach(comment => {
-                    const div = document.createElement('div');
-                    div.className = 'message';
-                    const body = comment.body.split('|'); // 用 | 分割名字和内容
-                    div.innerHTML = `<strong>${body[0] || '匿名'}</strong><p>${body[1] || comment.body}</p>`;
-                    msgDiv.appendChild(div);
-                });
-            } catch(e) {
-                msgDiv.innerHTML = '<p style="color:red;">加载留言失败，请刷新重试~</p>';
-            }
-        }
-
-        function submitMessage() {
-            const name = document.getElementById('name').value;
-            const content = document.getElementById('content').value;
-            if(!content) { alert('写点内容再发射吧！'); return; }
-            // 因为纯静态网页不能直接写API（会暴露Token），所以直接跳转到GitHub页面让用户提交
-            const url = `https://github.com/${owner}/${repo}/issues/${issueNumber}#new_comment_field`;
-            alert("因为网页是纯静态的，为了安全，接下来将跳转到 GitHub 页面直接留言哦！你可以把刚才的内容粘贴过去~");
-            window.open(url, '_blank');
-        }
-
-        loadMessages();
-    </script>
+    <!-- 大标题 -->
+    <h1>Littlefly</h1>
+    
+    <!-- 神秘代码 -->
+    <p class="secret-text">sb3=wp15</p>
+    
+    <!-- 导航按钮 -->
+    <a href="message.html" class="nav-btn">前往心愿留言板 →</a>
 </body>
 </html>
