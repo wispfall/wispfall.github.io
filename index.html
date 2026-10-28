@@ -1,107 +1,87 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>wispfall</title>
-    <style>
-        /* 基础页面重置 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Courier New', Courier, monospace; /* 采用等宽字体，增加极客感 */
-            background-color: #0d1117; /* GitHub 风格的深邃黑 */
-            color: #c9d1d9;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-        /* 超级大的标题 */
-        h1 {
-            font-size: 2rem;
-            color: #58a6ff; /* 明亮的蓝色 */
-            letter-spacing: 2px;
-            text-shadow: 0 0 20px rgba(88, 166, 255, 0.4); /* 发光效果 */
-            margin-bottom: 20px;
-            animation: fadeIn 1.5s ease-out;
-        }
-        /* 那行神秘的字 */
-        p.secret-text {
-            font-size: 1.5rem;
-            color: #8b949e;
-            letter-spacing: 5px;
-            margin-bottom: 60px;
-            font-weight: bold;
-        }
-        /* 前往留言板的按钮 */
-        .nav-btn {
-            text-decoration: none;
-            color: #0d1117;
-            background-color: #238636; /* GitHub 绿 */
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 14px rgba(35, 134, 54, 0.4);
-        }
-        .nav-btn:hover {
-            background-color: #2ea043;
-            transform: translateY(-3px); /* 悬浮时微微上浮 */
-            box-shadow: 0 6px 20px rgba(46, 160, 67, 0.6);
-        }
-        /* 简单的入场动画 */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Littlefly</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+font-family: 'Courier New', Courier, monospace;
+background-color: #0d1117;
+color: #c9d1d9;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+text-align: center;
+padding: 20px;
+}
+h1 {
+font-size: 2rem;
+color: #58a6ff;
+letter-spacing: 2px;
+text-shadow: 0 0 15px rgba(88, 166, 255, 0.4);
+margin-bottom: 20px;
+}
+.secret-text { font-size: 1.2rem; color: #8b949e; letter-spacing: 5px; font-weight: bold; margin-bottom: 20px; }
+.info-box {
+background-color: rgba(255, 255, 255, 0.05);
+border: 1px solid #333;
+border-left: 4px solid #58a6ff;
+padding: 15px 20px;
+border-radius: 8px;
+text-align: left;
+max-width: 400px;
+margin: 20px auto;
+color: #c9d1d9;
+font-size: 0.95rem;
+line-height: 1.6;
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+.info-box p { margin-bottom: 8px; }
+.info-box strong { color: #58a6ff; }
+.info-box em { color: #8b949e; font-style: normal; font-size: 0.85rem; }
+.btn-container { margin-top: 20px; }
+.btn-chaos {
+display: inline-block;
+padding: 10px 20px;
+color: #8b949e;
+text-decoration: none;
+border: 1px solid #333;
+border-radius: 5px;
+font-size: 1rem;
+letter-spacing: 2px;
+margin: 10px;
+}
+.btn-message {
+display: inline-block;
+padding: 10px 20px;
+background-color: #2ea44f;
+color: white;
+text-decoration: none;
+border-radius: 5px;
+font-size: 1rem;
+font-weight: bold;
+margin: 10px;
+}
+</style>
 </head>
 <body>
-    <!-- 大标题 -->
-    <h1>wispfall的个人主页</h1>
-
-    <!-- 神秘代码/说明 -->
-    <p class="secret-text">网页持有者（网页由DeepSeek辅助生成）</p>
-
-    <br><br>
-    
-    <!-- 跳转 chaos 的受损节点按钮 -->
-    <a href="https://wispfall.github.io/chaos/" style="
-        display: inline-block;
-        padding: 10px 20px;
-        color: #8b949e;
-        text-decoration: none;
-        border: 1px solid #333;
-        border-radius: 5px;
-        font-size: 1rem;
-        letter-spacing: 2px;
-        transition: all 0.3s ease;
-        margin-bottom: 20px;
-    " onmouseover="this.style.color='#58a6ff'; this.style.borderColor='#58a6ff'; this.style.boxShadow='0 0 10px #58a6ff';" 
-       onmouseout="this.style.color='#8b949e'; this.style.borderColor='#333'; this.style.boxShadow='none';">
-       网页出现错误.点击前往系统故障エラー混沌▓▒░█接続失敗0x7F1A@#$%&
-    </a>
-
-    <br><br>
-
-    <!-- 导航按钮：留言板 -->
-    <a href="message.html" class="nav-btn" style="
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #2ea44f;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-size: 1rem;
-        font-weight: bold;
-    ">留言板 →</a>
+<h1>wispfall的个人主页</h1>
+<div class="info-box">
+<p><strong>ABOUT</strong></p>
+<p>这里是 <strong>wispfall</strong>是人哉</p>
+<p>网页由ds辅助开发，本人只会一点python</p>
+<p><strong>CONTACT</strong></p>
+<p>请前往littlefly525@163.com</p>
+</div>
+<p class="secret-text">不知道写点什么</p>
+<p style="color: #8b949e; font-size: 0.9rem; margin-top: 10px;">网页持有者（网页由DeepSeek辅助生成）</p>
+<div class="btn-container">
+<a href="https://wispfall.github.io/chaos/" class="btn-chaos">（限时）网页正在遭受攻击，前wangxiufu系统故障エラー混沌▓▒░█接続失敗0x7F1A@#$%&</a>
+<a href="message.html" class="btn-message">留言板 →</a>
+</div>
 </body>
 </html>
